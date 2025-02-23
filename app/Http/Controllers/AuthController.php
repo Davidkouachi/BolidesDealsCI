@@ -89,8 +89,6 @@ class AuthController extends Controller
             return response()->json(['contact_existe' => true, 'message' => 'Ce contact existe déjà']);
         }
 
-        Log::info($request->all());
-
         $filename = null;
         $pdfPathname = null;
 

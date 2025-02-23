@@ -60,5 +60,10 @@ class Controller
         return view('bord.index');
     }
 
+    public function index_marque_bord()
+    {
+        return view('bord.marque');
+    }
+
 
 }

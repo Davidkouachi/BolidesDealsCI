@@ -21,9 +21,12 @@ Route::get('/Nouveau Mot de passe/{token}', [Controller::class, 'index_new_passw
 
 Route::middleware(['administration:ADMINISTRATEUR'])->group(function () {
     Route::get('/Tableau de Bord', [Controller::class, 'index_accueil_bord'])->name('index_accueil_bord');
+    Route::get('/Marques de véhicules', [Controller::class, 'index_marque_bord'])->name('index_marque_bord');
+
+
     // Route::get('/Tableau de Bord/Suggestions', [Controller::class, 'index_bord_sugg'])->name('index_bord_sugg');
 
-    // Route::get('/Tableau de Bord/Marques de véhicules', [Controller::class, 'index_bord_marque'])->name('index_bord_marque');
+    
     // Route::post('/Traitement marque', [Controller::class, 'trait_marque'])->name('trait_marque');
     // Route::post('/Supprimer marques', [Controller::class, 'suppr_marque'])->name('suppr_marque');
     // Route::post('/Update marque/{id}', [Controller::class, 'update_marque'])->name('update_marque');

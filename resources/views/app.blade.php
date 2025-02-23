@@ -18,8 +18,10 @@
     <link href="{{asset('assets/css/dashlite55a0.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/theme55a0.css')}}" id="skin-default" rel="stylesheet">
     <link href="{{asset('assets/css/style_preloader.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
 
     <script src="{{asset('jquery.min.js')}}"></script>
+    <script src="{{asset('assets/js/app/js/datatable_init.js') }}"></script>
     <script src="{{asset('assets/js/app/js/preloader.js') }}"></script>
     <script src="{{asset('assets/js/app/js/cookies.js') }}"></script>
     <script src="{{asset('assets/js/app/js/cookies_data.js') }}"></script>
@@ -50,7 +52,7 @@
     <div class="nk-app-root">
         <div class="nk-main ">
 
-            @if(request()->routeIs('index_accueil_bord') )
+            @if(request()->routeIs('index_accueil_bord','index_marque_bord') )
             <div class="nk-sidebar is-light nk-sidebar-fixed " data-content="sidebarMenu">
                 <div class="nk-sidebar-element nk-sidebar-head">
                     <div class="nk-sidebar-brand">
@@ -89,8 +91,8 @@
                                             Utilisateurs
                                         </span>
                                     </a>
-                                </li>
-                                <li class="nk-menu-item">
+                                </li> --}}
+                                {{-- <li class="nk-menu-item">
                                     <a class="nk-menu-link" href="{{route('index_bord_role')}}">
                                         <span class="nk-menu-icon">
                                             <em class="icon ni ni-focus">
@@ -100,9 +102,9 @@
                                             Rôles
                                         </span>
                                     </a>
-                                </li>
+                                </li> --}}
                                 <li class="nk-menu-item">
-                                    <a class="nk-menu-link" href="{{route('index_bord_marque')}}">
+                                    <a class="nk-menu-link" href="{{route('index_marque_bord')}}">
                                         <span class="nk-menu-icon">
                                             <em class="icon ni ni-layout-fill">
                                             </em>
@@ -112,7 +114,7 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li class="nk-menu-item">
+                                {{-- <li class="nk-menu-item">
                                     <a class="nk-menu-link" href="{{route('index_bord_sugg')}}">
                                         <span class="nk-menu-icon">
                                             <em class="icon ni ni-contact">
@@ -122,8 +124,8 @@
                                             Suggestions
                                         </span>
                                     </a>
-                                </li>
-                                <li class="nk-menu-item">
+                                </li> --}}
+                                {{-- <li class="nk-menu-item">
                                     <a class="nk-menu-link" href="{{route('index_formule')}}">
                                         <span class="nk-menu-icon">
                                             <em class="icon ni ni-sign-usdc">
@@ -133,8 +135,8 @@
                                             Formules
                                         </span>
                                     </a>
-                                </li>
-                                <li class="nk-menu-item">
+                                </li> --}}
+                                {{-- <li class="nk-menu-item">
                                     <a class="nk-menu-link" href="{{route('index_bord_parametrage')}}">
                                         <span class="nk-menu-icon">
                                             <em class="icon ni ni-setting">
@@ -157,7 +159,7 @@
                     <div class="container-xl wide-xl">
                         <div class="nk-header-wrap">
 
-                            @if(request()->routeIs('index_accueil_bord') )
+                            @if(request()->routeIs('index_accueil_bord','index_marque_bord') )
                             <div class="nk-menu-trigger d-xl-none ms-n1 me-3">
                                 <a class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu" href="#">
                                     <em class="icon ni ni-menu">
@@ -166,11 +168,12 @@
                             </div>
                             @endif
                             
-                            <div class="nk-header-brand ">
+                            <div class="nk-header-brand d-xl-none">
                                 <a class="logo-link" href="{{ route('index_accueil') }}">
                                     <img height="50" width="50" src="{{asset('images/logo/logo.png')}}" /></img>
                                 </a>
-                            </div>                           
+                            </div>
+
                             <div class="nk-header-tools">
                                 <ul class="nk-quick-nav">
                                     {{-- @if(!request()->routeIs('index_accueil'))

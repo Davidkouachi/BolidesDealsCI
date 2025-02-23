@@ -1,1 +1,328 @@
-"use strict";!function(u,p){u.Package.name="DashLite",u.Package.version="3.2";var r=p(window),a=p("body"),c=p(document),t="nk-menu",s="nk-header-menu",l="nk-sidebar",e="nk-sidebar-mobile",d=u.Break;function f(e,n){return Object.keys(n).forEach(function(t){e[t]=n[t]}),e}u.ClassBody=function(){u.AddInBody(l)},u.ClassNavMenu=function(){u.BreakClass("."+s,d.lg,{timeOut:0}),u.BreakClass("."+l,d.lg,{timeOut:0,classAdd:e}),r.on("resize",function(){u.BreakClass("."+s,d.lg),u.BreakClass("."+l,d.lg,{classAdd:e})})},u.Prettify=function(){window.prettyPrint&&prettyPrint()},u.Copied=function(){var t=".clipboard-init",i=".clipboard-text",o="clipboard-success",s="clipboard-error";function e(t,e){var t=p(t),n=t.parent(),a={text:"Copy",done:"Copied",fail:"Failed"},t={text:t.data("clip-text"),done:t.data("clip-success"),fail:t.data("clip-error")},t=(a.text=t.text||a.text,a.done=t.done||a.done,a.fail=t.fail||a.fail,"success"===e?a.done:a.fail);n.addClass("success"===e?o:s).find(i).html(t),setTimeout(function(){n.removeClass(o+" "+s).find(i).html(a.text).blur(),n.find("input").blur()},2e3)}ClipboardJS.isSupported()?new ClipboardJS(t).on("success",function(t){e(t.trigger,"success"),t.clearSelection()}).on("error",function(t){e(t.trigger,"error")}):p(t).css("display","none")},u.CurrentLink=function(){var t=window.location.href,n=(n=t.substring(0,-1==t.indexOf("#")?t.length:t.indexOf("#"))).substring(0,-1==n.indexOf("?")?n.length:n.indexOf("?"));p(".nk-menu-link, .menu-link, .nav-link").each(function(){var t=p(this),e=t.attr("href");n.match(e)?(t.closest("li").addClass("active current-page").parents().closest("li").addClass("active current-page"),t.closest("li").children(".nk-menu-sub").css("display","block"),t.parents().closest("li").children(".nk-menu-sub").css("display","block")):t.closest("li").removeClass("active current-page").parents().closest("li:not(.current-page)").removeClass("active")})},u.StickyNav=function(){var t=document.querySelectorAll(".nk-header");0<t.length&&t.forEach(function(t){30<window.scrollY?t.classList.add("has-fixed"):t.classList.remove("has-fixed")})},u.StickyNav.init=function(){u.StickyNav(),window.addEventListener("scroll",function(){u.StickyNav()})},u.PassSwitch=function(){u.Passcode(".passcode-switch")},u.Toast=function(t,e,n){var a="info"===(e=e||"info")?"ni ni-info-fill":"success"===e?"ni ni-check-circle-fill":"error"===e?"ni ni-cross-circle-fill":"warning"===e?"ni ni-alert-fill":"",i={position:"bottom-right",ui:"",icon:"auto",clear:!1},n=n?f(i,n):i;n.position=n.position?"toast-"+n.position:"toast-bottom-right",n.icon="auto"===n.icon?a:n.icon||"",n.ui=n.ui?" "+n.ui:"",i=""!==n.icon?'<span class="toastr-icon"><em class="icon '+n.icon+'"></em></span>':"",""!==(t=""!==t?i+'<div class="toastr-text">'+t+"</div>":"")&&(!0===n.clear&&toastr.clear(),a={closeButton:!0,debug:!1,newestOnTop:!1,progressBar:!1,positionClass:n.position+n.ui,closeHtml:'<span class="btn-trigger">Close</span>',preventDuplicates:!0,showDuration:"1500",hideDuration:"1500",timeOut:"2000",toastClass:"toastr",extendedTimeOut:"3000"},toastr.options=f(a,n),toastr[e](t))},u.TGL.screen=function(t){p(t).exists()&&p(t).each(function(){var t=p(this).data("toggle-screen");t&&p(this).addClass("toggle-screen-"+t)})},u.TGL.content=function(t,e){var t=p(t||".toggle"),n=p("[data-content]"),o=!1,a={active:"active",content:"content-active",break:!0},s=e?f(a,e):a;u.TGL.screen(n),t.on("click",function(t){o=this,u.Toggle.trigger(p(this).data("target"),s),t.preventDefault()}),c.on("mouseup",function(t){var e,n,a,i;o&&(e=p(o),n=p(o).data("target"),n=p('[data-content="'.concat(n,'"]')),a=p(".datepicker-dropdown"),i=p(".ui-timepicker-container"),e.is(t.target)||0!==e.has(t.target).length||n.is(t.target)||0!==n.has(t.target).length||0!==p(t.target).closest(".select2-container").length||a.is(t.target)||0!==a.has(t.target).length||i.is(t.target)||0!==i.has(t.target).length||(u.Toggle.removed(e.data("target"),s),o=!1))}),r.on("resize",function(){n.each(function(){var t=p(this).data("content"),e=p(this).data("toggle-screen"),e=d[e];u.Win.width>e&&u.Toggle.removed(t,s)})})},u.TGL.expand=function(t,e){var t=t||".expand",n={toggle:!0},a=e?f(n,e):n;p(t).on("click",function(t){u.Toggle.trigger(p(this).data("target"),a),t.preventDefault()})},u.TGL.ddmenu=function(t,e){var t=t||".nk-menu-toggle",n={active:"active",self:"nk-menu-toggle",child:"nk-menu-sub"},a=e?f(n,e):n;p(t).on("click",function(t){(u.Win.width<d.lg||p(this).parents().hasClass(l))&&u.Toggle.dropMenu(p(this),a),t.preventDefault()})},u.TGL.showmenu=function(t,e){var n=p(t||".nk-nav-toggle"),a=p("[data-content]"),i=a.hasClass(s)?d.lg:d.xl,t={active:"toggle-active",content:l+"-active",body:"nav-shown",overlay:"nk-sidebar-overlay",break:i,close:{profile:!0,menu:!1}},o=e?f(t,e):t;n.on("click",function(t){u.Toggle.trigger(p(this).data("target"),o),t.preventDefault()}),c.on("mouseup",function(t){!n.is(t.target)&&0===n.has(t.target).length&&!a.is(t.target)&&0===a.has(t.target).length&&u.Win.width<i&&u.Toggle.removed(n.data("target"),o)}),r.on("resize",function(){(u.Win.width<d.xl||u.Win.width<i)&&u.Toggle.removed(n.data("target"),o)})},u.Ani.formSearch=function(t,e){var n={active:"active",timeout:400,target:"[data-search]"},a=e?f(n,e):n,i=p(t),o=p(a.target);i.exists()&&(i.on("click",function(t){t.preventDefault();var t=p(this).data("target"),e=p("[data-search="+t+"]"),t=p("[data-target="+t+"]");e.hasClass(a.active)?(t.add(e).removeClass(a.active),setTimeout(function(){e.find("input").val("")},a.timeout)):(t.add(e).addClass(a.active),e.find("input").focus())}),c.on({keyup:function(t){"Escape"===t.key&&i.add(o).removeClass(a.active)},mouseup:function(t){o.find("input").val()||o.is(t.target)||0!==o.has(t.target).length||i.is(t.target)||0!==i.has(t.target).length||i.add(o).removeClass(a.active)}}))},u.Ani.formElm=function(t,e){var n={focus:"focused"},a=e?f(n,e):n;p(t).exists()&&p(t).each(function(){var t=p(this);t.val()&&t.parent().addClass(a.focus),t.on({focus:function(){t.parent().addClass(a.focus)},blur:function(){t.val()||t.parent().removeClass(a.focus)}})})},u.Validate=function(t,e){p(t).exists()&&(p(t).each(function(){var t={errorElement:"span"},t=e?f(t,e):t;p(this).validate(t)}),u.Validate.OnChange(".js-select2"),u.Validate.OnChange(".date-picker"),u.Validate.OnChange(".js-tagify"))},u.Validate.OnChange=function(t){p(t).on("change",function(){p(this).valid()})},u.Validate.init=function(){u.Validate(".form-validate",{errorElement:"span",errorClass:"invalid",errorPlacement:function(t,e){e.parents().hasClass("input-group")?t.appendTo(e.parent().parent()):t.appendTo(e.parent())}})},u.Dropzone=function(a,i){p(a).exists()&&p(a).each(function(){var t=p(a).data("max-files")||null,e=p(a).data("max-file-size")||256,n=p(a).data("accepted-files"),t={autoDiscover:!1,maxFiles:t,maxFilesize:e,acceptedFiles:n||null},e=i?f(t,i):t;p(this).addClass("dropzone").dropzone(e)})},u.Dropzone.init=function(){u.Dropzone(".upload-zone",{url:"/images"})},u.Wizard=function(){var t=p(".nk-wizard");t.exists()&&t.each(function(){var t=p(this).attr("id"),a=p("#"+t).show();a.steps({headerTag:".nk-wizard-head",bodyTag:".nk-wizard-content",labels:{finish:"Submit",next:"Next",previous:"Prev",loading:"Loading ..."},titleTemplate:'<span class="number">0#index#</span> #title#',onStepChanging:function(t,e,n){return n<e||(e<n&&(a.find(".body:eq("+n+") label.error").remove(),a.find(".body:eq("+n+") .error").removeClass("error")),a.validate().settings.ignore=":disabled,:hidden",a.valid())},onFinishing:function(t,e){return a.validate().settings.ignore=":disabled",a.valid()},onFinished:function(t,e){window.location.href="#"}}).validate({errorElement:"span",errorClass:"invalid",errorPlacement:function(t,e){t.appendTo(e.parent())}})})},u.DataTable=function(t,o){p(t).exists()&&p(t).each(function(){var t=p(this).data("auto-responsive"),e=!(void 0===o.buttons||!o.buttons),n=p(this).data("export-title")?p(this).data("export-title"):"Export",a=e?'<"dt-export-buttons d-flex align-center"<"dt-export-title d-none d-md-inline-block">B>':"",e=e?" with-export":"",i='<"row justify-between g-2'+e+'"<"col-7 col-sm-4 text-start"f><"col-5 col-sm-8 text-end"<"datatable-filter"<"d-flex justify-content-end g-2"'+a+'l>>>><"datatable-wrap my-3"t><"row align-items-center"<"col-7 col-sm-12 col-md-9"p><"col-5 col-sm-12 col-md-3 text-start text-md-end"i>>',e='<"row justify-between g-2'+e+'"<"col-7 col-sm-4 text-start"f><"col-5 col-sm-8 text-end"<"datatable-filter"<"d-flex justify-content-end g-2"'+a+'l>>>><"my-3"t><"row align-items-center"<"col-7 col-sm-12 col-md-9"p><"col-5 col-sm-12 col-md-3 text-start text-md-end"i>>',a={responsive:!0,autoWidth:!1,dom:p(this).hasClass("is-separate")?e:i,language:{search:"",searchPlaceholder:"Type in to Search",lengthMenu:"<span class='d-none d-sm-inline-block'>Show</span><div class='form-control-select'> _MENU_ </div>",info:"_START_ -_END_ of _TOTAL_",infoEmpty:"0",infoFiltered:"( Total _MAX_  )",paginate:{first:"First",last:"Last",next:"Next",previous:"Prev"}}},e=o?f(a,o):a,e=!1===t?f(e,{responsive:!1}):e;p(this).DataTable(e),p(".dt-export-title").text(n)})},u.DataTable.init=function(){u.DataTable(".datatable-init",{responsive:{details:!0}}),u.DataTable(".datatable-init-export",{responsive:{details:!0},buttons:["copy","excel","csv","pdf"]}),p.fn.DataTable.ext.pager.numbers_length=7},u.BS.ddfix=function(t,e){var n=e||"a:not(.clickable), button:not(.clickable), a:not(.clickable) *, button:not(.clickable) *";p(t||".dropdown-menu").on("click",function(t){p(t.target).is(n)||t.stopPropagation()}),u.State.isRTL&&p(".dropdown-menu").each(function(){var t=p(this);t.hasClass("dropdown-menu-end")&&!t.hasClass("dropdown-menu-center")?t.prev('[data-bs-toggle="dropdown"]').dropdown({popperConfig:{placement:"bottom-start"}}):t.hasClass("dropdown-menu-end")||t.hasClass("dropdown-menu-center")||t.prev('[data-bs-toggle="dropdown"]').dropdown({popperConfig:{placement:"bottom-end"}})})},u.BS.tabfix=function(t){p(t||'[data-bs-toggle="modal"]').on("click",function(){var t=p(this),e=t.data("target"),n=t.attr("href"),t=t.data("tab-target"),e=e?a.find(e):a.find(n);t&&"#"!==t&&e?e.find('[href="'+t+'"]').tab("show"):e&&(n=e.find(".nk-nav.nav-tabs"),t=p(n[0]).find('[data-bs-toggle="tab"]'),p(t[0]).tab("show"))})},u.ModeSwitch=function(){var t=p(".dark-switch");a.hasClass("dark-mode")?t.addClass("active"):t.removeClass("active"),t.on("click",function(t){t.preventDefault(),p(this).toggleClass("active"),a.toggleClass("dark-mode")})},u.Knob=function(t,e){var n,a;p(t).exists()&&"function"==typeof p.fn.knob&&(n={min:0},a=e?f(n,e):n,p(t).each(function(){p(this).knob(a)}))},u.Knob.init=function(){var t={readOnly:!0,lineCap:"round"},e={angleOffset:-90,angleArc:180,readOnly:!0,lineCap:"round"};u.Knob(".knob",t),u.Knob(".knob-half",e)},u.Range=function(t,d){p(t).exists()&&"undefined"!=typeof noUiSlider&&p(t).each(function(){var t=p(this),e=t.attr("id"),n=t.data("start"),n=(n=/\s/g.test(n)?n.split(" "):n)||0,a=t.data("connect"),a=void 0===(a=/\s/g.test(a)?a.split(" "):a)?"lower":a,i=t.data("min")||0,o=t.data("max")||100,s=t.data("min-distance")||null,r=t.data("max-distance")||null,c=t.data("step")||1,l=t.data("orientation")||"horizontal",t=t.data("tooltip")||!1,e=(console.log(t),document.getElementById(e)),n={start:n,connect:a,direction:u.State.isRTL?"rtl":"ltr",range:{min:i,max:o},margin:s,limit:r,step:c,orientation:l,tooltips:t},a=d?f(n,d):n;noUiSlider.create(e,a)})},u.Range.init=function(){u.Range(".form-control-slider"),u.Range(".form-range-slider")},u.Select2.init=function(){u.Select2(".js-select2")},u.Slick=function(t,e){p(t).exists()&&"function"==typeof p.fn.slick&&p(t).each(function(){var t={prevArrow:'<div class="slick-arrow-prev"><a href="javascript:void(0);" class="slick-prev"><em class="icon ni ni-chevron-left"></em></a></div>',nextArrow:'<div class="slick-arrow-next"><a href="javascript:void(0);" class="slick-next"><em class="icon ni ni-chevron-right"></em></a></div>',rtl:u.State.isRTL},t=e?f(t,e):t;p(this).slick(t)})},u.Slider.init=function(){u.Slick(".slider-init")},u.Lightbox=function(t,e,n){p(t).exists()&&p(t).each(function(){var t={},t="video"==e||"iframe"==e?{type:"iframe",removalDelay:160,preloader:!0,fixedContentPos:!1,callbacks:{beforeOpen:function(){this.st.image.markup=this.st.image.markup.replace("mfp-figure","mfp-figure mfp-with-anim"),this.st.mainClass=this.st.el.attr("data-effect")}}}:"content"==e?{type:"inline",preloader:!0,removalDelay:400,mainClass:"mfp-fade content-popup"}:{type:"image",mainClass:"mfp-fade image-popup"},t=n?f(t,n):t;p(this).magnificPopup(t)})},u.Control=function(t){document.querySelectorAll(t).forEach(function(t,e,n){t.checked&&t.parentNode.classList.add("checked"),t.addEventListener("change",function(){"checkbox"==t.type&&(t.checked?t.parentNode.classList.add("checked"):t.parentNode.classList.remove("checked")),"radio"==t.type&&(document.querySelectorAll('input[name="'+t.name+'"]').forEach(function(t,e,n){t.parentNode.classList.remove("checked")}),t.checked)&&t.parentNode.classList.add("checked")})})},u.NumberSpinner=function(t,e){var a=document.querySelectorAll("[data-number='plus']"),i=document.querySelectorAll("[data-number='minus']");a.forEach(function(t,e,n){a[e].parentNode;a[e].addEventListener("click",function(){var s=a[e].parentNode.children;s.forEach(function(t,e,n){var a,i,o;s[e].classList.contains("number-spinner")&&(a=""==!s[e].value?parseInt(s[e].value):0,i=""==!s[e].step?parseInt(s[e].step):1,o=""==!s[e].max?parseInt(s[e].max):1/0,s[e].value=a+i<o+1?a+i:a)})})}),i.forEach(function(t,e,n){i[e].parentNode;i[e].addEventListener("click",function(){var s=i[e].parentNode.children;s.forEach(function(t,e,n){var a,i,o;s[e].classList.contains("number-spinner")&&(a=""==!s[e].value?parseInt(s[e].value):0,i=""==!s[e].step?parseInt(s[e].step):1,o=""==!s[e].min?parseInt(s[e].min):0,s[e].value=o-1<a-i?a-i:a)})})})},u.Stepper=function(t,a){t=document.querySelectorAll(t);0<t.length&&t.forEach(function(t,e){var n={selectors:{nav:"stepper-nav",progress:"stepper-progress",content:"stepper-steps",prev:"step-prev",next:"step-next",submit:"step-submit"},classes:{nav_current:"current",nav_done:"done",step_active:"active",step_done:"done",active_step:"active"},current_step:1},n=a?f(n,a):n;u.Custom.Stepper(t,n),u.Validate.OnChange(".js-select2"),u.Validate.OnChange(".date-picker"),u.Validate.OnChange(".js-tagify")})},u.Stepper.init=function(){u.Stepper(".stepper-init")},u.Tagify=function(t,e){p(t).exists()&&"function"==typeof p.fn.tagify&&(e=e?f(void 0,e):void 0,p(t).tagify(e))},u.Tagify.init=function(){u.Tagify(".js-tagify")},u.Filter=function(t,e){document.querySelectorAll(t).forEach(function(t){var n,a;void 0!==t&&null!=t&&(n=new Isotope(t,{itemSelector:e,layoutMode:"fitRows",filter:function(t){return!0},hiddenStyle:{opacity:0,transform:"scale(0.001)"},visibleStyle:{opacity:1,transform:"scale(1)"}}),a=document.querySelectorAll("[data-filter]"),console.log(),a.forEach(function(e){e.addEventListener("click",function(t){matchesSelector(t.target,"button")&&(t=t.target.getAttribute("data-filter"),n.arrange({filter:t}),a.forEach(function(t){t.classList.remove("active")}),e.classList.add("active"))})}))})},u.OtherInit=function(){u.ClassBody(),u.PassSwitch(),u.CurrentLink(),u.LinkOff(".is-disable"),u.ClassNavMenu(),u.SetHW("[data-height]","height"),u.SetHW("[data-width]","width"),u.NumberSpinner(),u.Lightbox(".popup-video","video"),u.Lightbox(".popup-iframe","iframe"),u.Lightbox(".popup-image","image"),u.Lightbox(".popup-content","content"),u.Control(".custom-control-input"),u.Filter(".filter-container",".filter-item")},u.Ani.init=function(){u.Ani.formElm(".form-control-outlined"),u.Ani.formSearch(".toggle-search")},u.BS.init=function(){u.BS.menutip("a.nk-menu-link"),u.BS.tooltip(".nk-tooltip"),u.BS.tooltip(".btn-tooltip",{placement:"top"}),u.BS.tooltip('[data-toggle="tooltip"]'),u.BS.tooltip('[data-bs-toggle="tooltip"]'),u.BS.tooltip(".tipinfo,.nk-menu-tooltip",{placement:"right"}),u.BS.popover('[data-toggle="popover"]'),u.BS.popover('[data-bs-toggle="popover"]'),u.BS.progress("[data-progress]"),u.BS.fileinput(".form-file-input"),u.BS.modalfix(),u.BS.ddfix(),u.BS.tabfix()},u.Picker.init=function(){u.Picker.date(".date-picker"),u.Picker.dob(".date-picker-alt"),u.Picker.time(".time-picker"),u.Picker.date(".date-picker-range",{todayHighlight:!1,autoclose:!1}),u.Picker.date(".date-picker-ym",{format:"mm/yy",startView:2,autoclose:!0,maxViewMode:2,minViewMode:1})},u.Addons.Init=function(){u.Knob.init(),u.Range.init(),u.Select2.init(),u.Dropzone.init(),u.Slider.init(),u.DataTable.init(),u.Tagify.init()},u.TGL.init=function(){u.TGL.content(".toggle"),u.TGL.expand(".toggle-expand"),u.TGL.expand(".toggle-opt",{toggle:!1}),u.TGL.showmenu(".nk-nav-toggle"),u.TGL.ddmenu("."+t+"-toggle",{self:t+"-toggle",child:t+"-sub"})},u.BS.modalOnInit=function(){p(".modal").on("shown.bs.modal",function(){u.Select2.init(),u.Validate.init()})},u.init=function(){u.coms.docReady.push(u.OtherInit),u.coms.docReady.push(u.Prettify),u.coms.docReady.push(u.ColorBG),u.coms.docReady.push(u.ColorTXT),u.coms.docReady.push(u.Copied),u.coms.docReady.push(u.Ani.init),u.coms.docReady.push(u.TGL.init),u.coms.docReady.push(u.BS.init),u.coms.docReady.push(u.Validate.init),u.coms.docReady.push(u.Picker.init),u.coms.docReady.push(u.Addons.Init),u.coms.docReady.push(u.Wizard),u.coms.docReady.push(u.Stepper.init),u.coms.winLoad.push(u.ModeSwitch),u.coms.winLoad.push(u.StickyNav.init)},u.init()}(NioApp,jQuery);
+((p, x) => {
+    p.Package.name = "DashLite", p.Package.version = "3.2";
+    var r = x(window),
+        a = x("body"),
+        c = x(document),
+        e = "nk-menu",
+        s = "nk-header-menu",
+        l = "nk-sidebar",
+        d = p.Break;
+
+    function u(t, n) { return Object.keys(n).forEach(function(e) { t[e] = n[e] }), t } p.ClassBody = function() { p.AddInBody(l) }, p.ClassNavMenu = function() { p.BreakClass("." + s, d.lg, { timeOut: 0 }), r.on("resize", function() { p.BreakClass("." + s, d.lg) }) }, p.Prettify = function() { window.prettyPrint && prettyPrint() }, p.Copied = function() {
+        var e = ".clipboard-init",
+            o = ".clipboard-text",
+            i = "clipboard-success",
+            s = "clipboard-error";
+
+        function t(e, t) {
+            var e = x(e),
+                n = e.parent(),
+                a = { text: "Copy", done: "Copied", fail: "Failed" },
+                e = { text: e.data("clip-text"), done: e.data("clip-success"), fail: e.data("clip-error") },
+                e = (a.text = e.text || a.text, a.done = e.done || a.done, a.fail = e.fail || a.fail, "success" === t ? a.done : a.fail);
+            n.addClass("success" === t ? i : s).find(o).html(e), setTimeout(function() { n.removeClass(i + " " + s).find(o).html(a.text).blur(), n.find("input").blur() }, 2e3)
+        }
+        ClipboardJS.isSupported() ? new ClipboardJS(e).on("success", function(e) { t(e.trigger, "success"), e.clearSelection() }).on("error", function(e) { t(e.trigger, "error") }) : x(e).css("display", "none")
+    }, p.CurrentLink = function() {
+        var e = window.location.href,
+            n = (n = e.substring(0, -1 == e.indexOf("#") ? e.length : e.indexOf("#"))).substring(0, -1 == n.indexOf("?") ? n.length : n.indexOf("?"));
+        x(".nk-menu-link, .menu-link, .nav-link").each(function() {
+            var e = x(this),
+                t = e.attr("href");
+            // n.match(t) ? (e.closest("li")
+            // 	.addClass("active current-page").parents().closest("li")
+            // 	.addClass("active current-page"), 
+            // 	e.closest("li").children(".nk-menu-sub").css("display", "block"), 
+            // 	e.parents().closest("li").children(".nk-menu-sub").css("display", "block"), 
+            // 	this.scrollIntoView({ block: "start" })) 
+            // : e.closest("li").removeClass("active current-page")
+            // .parents().closest("li:not(.current-page)")
+            // .removeClass("active")
+
+            if (n.match(t)) {
+
+            	// Supprimer les classes actives de tous les éléments du menu
+    			x(".nk-menu-item").removeClass("active current-page");
+    			
+	            // Ajouter les classes actives
+	            e.closest("li").addClass("active current-page");
+	            e.parents().closest("li").addClass("active current-page");
+
+	            if (e.closest("li").children(".nk-menu-sub").length > 0) {
+
+			        e.closest("li").children(".nk-menu-sub").css("display", "block");
+	            	e.parents().closest("li").children(".nk-menu-sub").css("display", "block");
+			    }
+	            
+	            // Scroller jusqu'à l'élément actif
+	            this.scrollIntoView({ block: "start" });
+
+	        } else {
+	            // Supprimer les classes des éléments non actifs
+	            e.closest("li").removeClass("active current-page");
+	            e.parents().closest("li:not(.current-page)").removeClass("active");
+	        }
+        })
+    }, p.PassSwitch = function() { p.Passcode(".passcode-switch") }, p.Toast = function(e, t, n) {
+        var a = "info" === (t = t || "info") ? "ni ni-info-fill" : "success" === t ? "ni ni-check-circle-fill" : "error" === t ? "ni ni-cross-circle-fill" : "warning" === t ? "ni ni-alert-fill" : "",
+            o = { position: "bottom-right", ui: "", icon: "auto", clear: !1 },
+            n = n ? u(o, n) : o;
+        n.position = n.position ? "toast-" + n.position : "toast-bottom-right", n.icon = "auto" === n.icon ? a : n.icon || "", n.ui = n.ui ? " " + n.ui : "", o = "" !== n.icon ? '<span class="toastr-icon"><em class="icon ' + n.icon + '"></em></span>' : "", "" !== (e = "" !== e ? o + '<div class="toastr-text">' + e + "</div>" : "") && (!0 === n.clear && toastr.clear(), a = { closeButton: !0, debug: !1, newestOnTop: !1, progressBar: !1, positionClass: n.position + n.ui, closeHtml: '<span class="btn-trigger">Close</span>', preventDuplicates: !0, showDuration: "1500", hideDuration: "1500", timeOut: "2000", toastClass: "toastr", extendedTimeOut: "3000" }, toastr.options = u(a, n), toastr[t](e))
+    }, p.TGL.screen = function(e) {
+        x(e).exists() && x(e).each(function() {
+            var e = x(this).data("toggle-screen");
+            e && x(this).addClass("toggle-screen-" + e)
+        })
+    }, p.TGL.content = function(e, t) {
+        var e = x(e || ".toggle"),
+            n = x("[data-content]"),
+            i = !1,
+            a = { active: "active", content: "content-active", break: !0 },
+            s = t ? u(a, t) : a;
+        p.TGL.screen(n), e.on("click", function(e) { i = this, p.Toggle.trigger(x(this).data("target"), s), e.preventDefault() }), c.on("mouseup", function(e) {
+            var t, n, a, o;
+            i && (t = x(i), n = x(i).data("target"), n = x('[data-content="'.concat(n, '"]')), a = x(".datepicker-dropdown"), o = x(".ui-timepicker-container"), t.is(e.target) || 0 !== t.has(e.target).length || n.is(e.target) || 0 !== n.has(e.target).length || 0 !== x(e.target).closest(".select2-container").length || a.is(e.target) || 0 !== a.has(e.target).length || o.is(e.target) || 0 !== o.has(e.target).length || (p.Toggle.removed(t.data("target"), s), i = !1))
+        }), r.on("resize", function() {
+            n.each(function() {
+                var e = x(this).data("content"),
+                    t = x(this).data("toggle-screen"),
+                    t = d[t];
+                p.Win.width > t && p.Toggle.removed(e, s)
+            })
+        })
+    }, p.TGL.expand = function(e, t) {
+        var e = e || ".expand",
+            n = { toggle: !0 },
+            a = t ? u(n, t) : n;
+        x(e).on("click", function(e) { p.Toggle.trigger(x(this).data("target"), a), e.preventDefault() })
+    }, p.TGL.ddmenu = function(e, t) {
+        var e = e || ".nk-menu-toggle",
+            n = { active: "active", self: "nk-menu-toggle", child: "nk-menu-sub" },
+            a = t ? u(n, t) : n;
+        x(e).on("click", function(e) {
+            (p.Win.width < d.lg || x(this).parents().hasClass(l)) && p.Toggle.dropMenu(x(this), a), e.preventDefault()
+        })
+    }, p.TGL.showmenu = function(e, t) {
+        var n = x(e || ".nk-nav-toggle"),
+            a = x("[data-content]"),
+            o = a.hasClass(s) ? d.lg : d.xl,
+            e = { active: "toggle-active", content: l + "-active", body: "nav-shown", overlay: "nk-sidebar-overlay", break: o, close: { profile: !0, menu: !1 } },
+            i = t ? u(e, t) : e;
+        n.on("click", function(e) { p.Toggle.trigger(x(this).data("target"), i), e.preventDefault() }), c.on("mouseup", function(e) {!n.is(e.target) && 0 === n.has(e.target).length && !a.is(e.target) && 0 === a.has(e.target).length && p.Win.width < o && p.Toggle.removed(n.data("target"), i) }), r.on("resize", function() {
+            (p.Win.width < d.xl || p.Win.width < o) && p.Toggle.removed(n.data("target"), i)
+        })
+    }, p.sbCompact = function() {
+        var e = x(".nk-nav-compact");
+        x("[data-content]");
+        e.on("click", function(e) {
+            e.preventDefault();
+            var e = x(this),
+                t = e.data("target"),
+                t = x("[data-content=" + t + "]");
+            e.toggleClass("compact-active"), t.toggleClass("is-compact")
+        })
+    }, p.Ani.formSearch = function(e, t) {
+        var n = { active: "active", timeout: 400, target: "[data-search]" },
+            a = t ? u(n, t) : n,
+            o = x(e),
+            i = x(a.target);
+        o.exists() && (o.on("click", function(e) {
+            e.preventDefault();
+            var e = x(this).data("target"),
+                t = x("[data-search=" + e + "]"),
+                e = x("[data-target=" + e + "]");
+            t.hasClass(a.active) ? (e.add(t).removeClass(a.active), setTimeout(function() { t.find("input").val("") }, a.timeout)) : (e.add(t).addClass(a.active), t.find("input").focus())
+        }), c.on({ keyup: function(e) { "Escape" === e.key && o.add(i).removeClass(a.active) }, mouseup: function(e) { i.find("input").val() || i.is(e.target) || 0 !== i.has(e.target).length || o.is(e.target) || 0 !== o.has(e.target).length || o.add(i).removeClass(a.active) } }))
+    }, p.Ani.formElm = function(e, t) {
+        var n = { focus: "focused" },
+            a = t ? u(n, t) : n;
+        x(e).exists() && x(e).each(function() {
+            var e = x(this);
+            e.val() && e.parent().addClass(a.focus), e.on({ focus: function() { e.parent().addClass(a.focus) }, blur: function() { e.val() || e.parent().removeClass(a.focus) } })
+        })
+    }, p.Validate = function(e, t) {
+        x(e).exists() && (x(e).each(function() {
+            var e = { errorElement: "span" },
+                e = t ? u(e, t) : e;
+            x(this).validate(e)
+        }), p.Validate.OnChange(".js-select2"), p.Validate.OnChange(".date-picker"), p.Validate.OnChange(".js-tagify"))
+    }, p.Validate.OnChange = function(e) { x(e).on("change", function() { x(this).valid() }) }, p.Validate.init = function() { p.Validate(".form-validate", { errorElement: "span", errorClass: "invalid", errorPlacement: function(e, t) { t.parents().hasClass("input-group") ? e.appendTo(t.parent().parent()) : e.appendTo(t.parent()) } }) }, p.Dropzone = function(a, o) {
+        x(a).exists() && x(a).each(function(e) {
+            var t = (t = x(a)[e].dataset.maxFiles) ? Number(t) : null,
+                n = (n = x(a)[e].dataset.maxFileSize) ? Number(n) : 256,
+                e = x(a)[e].dataset.acceptedFiles,
+                t = { autoDiscover: !1, maxFiles: t, maxFilesize: n, acceptedFiles: e || null },
+                n = o ? u(t, o) : t;
+            x(this).addClass("dropzone").dropzone(n)
+        })
+    }, p.Dropzone.init = function() { p.Dropzone(".upload-zone", { url: "/images" }) }, p.Wizard = function() {
+        var e = x(".nk-wizard");
+        e.exists() && e.each(function() {
+            var e = x(this).attr("id"),
+                a = x("#" + e).show();
+            a.steps({ headerTag: ".nk-wizard-head", bodyTag: ".nk-wizard-content", labels: { finish: "Submit", next: "Next", previous: "Prev", loading: "Loading ..." }, titleTemplate: '<span class="number">0#index#</span> #title#', onStepChanging: function(e, t, n) { return n < t || (t < n && (a.find(".body:eq(" + n + ") label.error").remove(), a.find(".body:eq(" + n + ") .error").removeClass("error")), a.validate().settings.ignore = ":disabled,:hidden", a.valid()) }, onFinishing: function(e, t) { return a.validate().settings.ignore = ":disabled", a.valid() }, onFinished: function(e, t) { window.location.href = "#" } }).validate({ errorElement: "span", errorClass: "invalid", errorPlacement: function(e, t) { e.appendTo(t.parent()) } })
+        })
+    }, p.DataTable = function(e, i) {
+        x(e).exists() && x(e).each(function() {
+            var e = x(this).data("auto-responsive"),
+                t = !(void 0 === i.buttons || !i.buttons),
+                n = x(this).data("export-title") ? x(this).data("export-title") : "Export",
+                a = t ? '<"dt-export-buttons d-flex align-center"<"dt-export-title d-none d-md-inline-block">B>' : "",
+                t = t ? " with-export" : "",
+                o = '<"row justify-between g-2' + t + '"<"col-7 col-sm-4 text-start"f><"col-5 col-sm-8 text-end"<"datatable-filter"<"d-flex justify-content-end g-2"' + a + 'l>>>><"datatable-wrap my-3"t><"row align-items-center"<"col-7 col-sm-12 col-md-9"p><"col-5 col-sm-12 col-md-3 text-start text-md-end"i>>',
+                t = '<"row justify-between g-2' + t + '"<"col-7 col-sm-4 text-start"f><"col-5 col-sm-8 text-end"<"datatable-filter"<"d-flex justify-content-end g-2"' + a + 'l>>>><"my-3"t><"row align-items-center"<"col-7 col-sm-12 col-md-9"p><"col-5 col-sm-12 col-md-3 text-start text-md-end"i>>',
+                a = {
+                    // processing: false,
+                    // serverSide: true,
+                    responsive: !0, 
+                    autoWidth: !0, 
+                    pagingType: "simple_numbers", 
+                    dom: x(this).hasClass("is-separate") ? t : o,
+                    language: { 
+                        search: "", 
+                        searchPlaceholder: "Recherche", 
+                        lengthMenu: "<span class='d-none d-sm-inline-block'>Afficher</span><div class='form-control-select'> _MENU_ </div>", info: "_START_ -_END_ of _TOTAL_", 
+                        infoEmpty: "0", 
+                        infoFiltered: "( Total _MAX_  )", 
+                        paginate: { 
+                            first: "Première", 
+                            last: "Dernière", 
+                            next: "Suivante", 
+                            previous: "Précédente" 
+                        },
+                        zeroRecords: "<div class='text-center no-data'>Aucune donnée trouvée</div>",
+                        emptyTable: "<div class='text-center no-data'>Veuillez patientez un instant s'il vous plaît ...</div>"
+                        // loadingRecords: "<div class='text-center no-data'>Chargement des données...</div>",
+                        // processing: "<div class='text-center no-data'>Chargement des données...</div>"
+                    } 
+                },
+                t = i ? u(a, i) : a,
+                t = !1 === e ? u(t, { responsive: !1, autoWidth: !1 }) : t;
+            x(this).DataTable(t), x(".dt-export-title").text(n)
+        })
+    }, p.DataTable.init = function() { p.DataTable(".datatable-init", { responsive: { details: !0 } }), p.DataTable(".datatable-init-export", { responsive: { details: !0 }, buttons: ["copy", "excel", "csv", "pdf"] }), x.fn.DataTable.ext.pager.numbers_length = 7 }, p.BS.ddfix = function(e, t) {
+        var n = t || "a:not(.clickable), button:not(.clickable), a:not(.clickable) *, button:not(.clickable) *";
+        x(e || ".dropdown-menu").on("click", function(e) { x(e.target).is(n) || e.stopPropagation() }), p.State.isRTL && x(".dropdown-menu").each(function() {
+            var e = x(this);
+            e.hasClass("dropdown-menu-end") && !e.hasClass("dropdown-menu-center") ? e.prev('[data-bs-toggle="dropdown"]').dropdown({ popperConfig: { placement: "bottom-start" } }) : e.hasClass("dropdown-menu-end") || e.hasClass("dropdown-menu-center") || e.prev('[data-bs-toggle="dropdown"]').dropdown({ popperConfig: { placement: "bottom-end" } })
+        })
+    }, p.BS.tabfix = function(e) {
+        x(e || '[data-toggle="modal"]').on("click", function() {
+            var e = x(this),
+                t = e.data("target"),
+                n = e.attr("href"),
+                e = e.data("tab-target"),
+                t = t ? a.find(t) : a.find(n);
+            e && "#" !== e && t ? t.find('[href="' + e + '"]').tab("show") : t && (n = t.find(".nk-nav.nav-tabs"), e = x(n[0]).find('[data-bs-toggle="tab"]'), x(e[0]).tab("show"))
+        })
+    }, p.ModeSwitch = function() {
+        var e = x(".dark-switch");
+        a.hasClass("dark-mode") ? e.addClass("active") : e.removeClass("active"), e.on("click", function(e) { e.preventDefault(), x(this).toggleClass("active"), a.toggleClass("dark-mode") })
+    }, p.Knob = function(e, t) {
+        var n, a;
+        x(e).exists() && "function" == typeof x.fn.knob && (n = { min: 0 }, a = t ? u(n, t) : n, x(e).each(function() { x(this).knob(a) }))
+    }, p.Knob.init = function() {
+        var e = { readOnly: !0, lineCap: "round" },
+            t = { angleOffset: -90, angleArc: 180, readOnly: !0, lineCap: "round" };
+        p.Knob(".knob", e), p.Knob(".knob-half", t)
+    }, p.Range = function(e, d) {
+        x(e).exists() && "undefined" != typeof noUiSlider && x(e).each(function() {
+            var e = x(this),
+                t = e.attr("id"),
+                n = e.data("start"),
+                n = (n = /\s/g.test(n) ? n.split(" ") : n) || 0,
+                a = e.data("connect"),
+                a = void 0 === (a = /\s/g.test(a) ? a.split(" ") : a) ? "lower" : a,
+                o = e.data("min") || 0,
+                i = e.data("max") || 100,
+                s = e.data("min-distance") || null,
+                r = e.data("max-distance") || null,
+                c = e.data("step") || 1,
+                l = e.data("orientation") || "horizontal",
+                e = e.data("tooltip") || !1,
+                t = (console.log(e), document.getElementById(t)),
+                n = { start: n, connect: a, direction: p.State.isRTL ? "rtl" : "ltr", range: { min: o, max: i }, margin: s, limit: r, step: c, orientation: l, tooltips: e },
+                a = d ? u(n, d) : n;
+            noUiSlider.create(t, a)
+        })
+    }, p.Range.init = function() { p.Range(".form-control-slider"), p.Range(".form-range-slider") }, p.Select2.init = function() { p.Select2(".js-select2") }, p.Slick = function(e, t) {
+        x(e).exists() && "function" == typeof x.fn.slick && x(e).each(function() {
+            var e = { prevArrow: '<div class="slick-arrow-prev"><a href="javascript:void(0);" class="slick-prev"><em class="icon ni ni-chevron-left"></em></a></div>', nextArrow: '<div class="slick-arrow-next"><a href="javascript:void(0);" class="slick-next"><em class="icon ni ni-chevron-right"></em></a></div>', rtl: p.State.isRTL },
+                e = t ? u(e, t) : e;
+            x(this).slick(e)
+        })
+    }, p.Slider.init = function() { p.Slick(".slider-init") }, p.Lightbox = function(e, t, n) {
+        x(e).exists() && x(e).each(function() {
+            var e = {},
+                e = "video" == t || "iframe" == t ? { type: "iframe", removalDelay: 160, preloader: !0, fixedContentPos: !1, callbacks: { beforeOpen: function() { this.st.image.markup = this.st.image.markup.replace("mfp-figure", "mfp-figure mfp-with-anim"), this.st.mainClass = this.st.el.attr("data-effect") } } } : "content" == t ? { type: "inline", preloader: !0, removalDelay: 400, mainClass: "mfp-fade content-popup" } : { type: "image", mainClass: "mfp-fade image-popup" },
+                e = n ? u(e, n) : e;
+            x(this).magnificPopup(e)
+        })
+    }, p.Control = function(e) { document.querySelectorAll(e).forEach(function(e, t, n) { e.checked && e.parentNode.classList.add("checked"), e.addEventListener("change", function() { "checkbox" == e.type && (e.checked ? e.parentNode.classList.add("checked") : e.parentNode.classList.remove("checked")), "radio" == e.type && (document.querySelectorAll('input[name="' + e.name + '"]').forEach(function(e, t, n) { e.parentNode.classList.remove("checked") }), e.checked) && e.parentNode.classList.add("checked") }) }) }, p.NumberSpinner = function(e, t) {
+        var a = document.querySelectorAll("[data-number='plus']"),
+            o = document.querySelectorAll("[data-number='minus']");
+        a.forEach(function(e, t, n) {
+            a[t].parentNode;
+            a[t].addEventListener("click", function() {
+                var s = a[t].parentNode.children;
+                s.forEach(function(e, t, n) {
+                    var a, o, i;
+                    s[t].classList.contains("number-spinner") && (a = "" == !s[t].value ? parseInt(s[t].value) : 0, o = "" == !s[t].step ? parseInt(s[t].step) : 1, i = "" == !s[t].max ? parseInt(s[t].max) : 1 / 0, s[t].value = a + o < i + 1 ? a + o : a)
+                })
+            })
+        }), o.forEach(function(e, t, n) {
+            o[t].parentNode;
+            o[t].addEventListener("click", function() {
+                var s = o[t].parentNode.children;
+                s.forEach(function(e, t, n) {
+                    var a, o, i;
+                    s[t].classList.contains("number-spinner") && (a = "" == !s[t].value ? parseInt(s[t].value) : 0, o = "" == !s[t].step ? parseInt(s[t].step) : 1, i = "" == !s[t].min ? parseInt(s[t].min) : 0, s[t].value = i - 1 < a - o ? a - o : a)
+                })
+            })
+        })
+    }, p.Custom.Stepper = function(n, e) {
+        var t = !(!n.dataset.stepInit || isNaN(n.dataset.stepInit)) && parseInt(n.dataset.stepInit),
+            t = { selectors: { nav: e.selectors.nav || "stepper-nav", progress: e.selectors.progress || "stepper-progress", content: e.selectors.content || "stepper-steps", prev: e.selectors.prev || "step-prev", next: e.selectors.next || "step-next", submit: e.selectors.submit || "step-submit" }, classes: { nav_current: e.classes.nav_current || "current", nav_done: e.classes.nav_done || "done", step_active: e.classes.step_active || "active", step_done: e.classes.step_done || "done" }, current_step: t || parseInt(e.current_step) },
+            a = n.querySelectorAll(".".concat(t.selectors.nav, " > *")),
+            o = n.querySelectorAll(".".concat(t.selectors.content, " > *")),
+            i = (n.querySelector(".".concat(t.selectors.progress)), n.querySelector(".".concat(t.selectors.progress, "-count"))),
+            s = n.querySelector(".".concat(t.selectors.progress, "-bar")),
+            r = n.querySelector(".".concat(t.selectors.prev)),
+            c = n.querySelector(".".concat(t.selectors.next)),
+            l = n.querySelector(".".concat(t.selectors.submit)),
+            d = t.classes.nav_current,
+            p = t.classes.nav_done,
+            u = t.classes.step_active,
+            f = t.classes.step_done,
+            e = t.current_step || 1,
+            g = e,
+            m = a.length,
+            h = o.length,
+            v = 0 < n.querySelectorAll(".".concat(t.selectors.nav)).length,
+            b = 0 < n.querySelectorAll(".".concat(t.selectors.progress)).length;
+
+        function y(e) {
+            var t = e - 1,
+                t = (n.style.display = "block", v && (a.forEach(function(e, t) { e.classList.remove(d) }), a[t].classList.add(d)), o.forEach(function(e, t) { e.classList.remove(u) }), o[t].classList.add(u), e);
+            1 === t && (c.style.display = "block", r.style.display = "none", l.style.display = "none", n.setAttribute("data-step-current", "first")), h !== t & 1 !== t && (r.style.display = "block", c.style.display = "block", l.style.display = "none", n.setAttribute("data-step-current", t)), h === t && (r.style.display = "block", l.style.display = "block", c.style.display = "none", n.setAttribute("data-step-current", "last")), b && (i.innerHTML = "".concat(e, " of ").concat(h), s.style.width = "".concat(100 / h * e, "%"))
+        }
+        m !== h && v ? console.error("Stepper nav should have same amount of child element as Stepper steps") : y(e);
+        var k = x("#" + n.id).validate({ errorElement: "span", errorClass: "invalid", onfocusout: !1, errorPlacement: function(e, t) { t.parents().hasClass("input-group") ? e.appendTo(t.parent().parent()) : e.appendTo(t.parent()) } });
+        r.querySelector("button").addEventListener("click", function(e) {
+            e.preventDefault();
+            var e = k.form(),
+                t = g - 1;
+            e ? h !== g && (v && a[t].classList.add(p), o[t].classList.add(f)) : (v && a[t].classList.remove(p), o[t].classList.remove(f)), y(--g)
+        }), c.querySelector("button").addEventListener("click", function(e) { e.preventDefault(), k.form() && (e = g - 1, v && a[e].classList.add(p), o[e].classList.add(f), y(++g)) }), l.querySelector("button").addEventListener("click", function(e) { e.preventDefault(), k.form() })
+    }, p.Stepper = function(e, a) {
+        e = document.querySelectorAll(e);
+        0 < e.length && e.forEach(function(e, t) {
+            var n = { selectors: { nav: "stepper-nav", progress: "stepper-progress", content: "stepper-steps", prev: "step-prev", next: "step-next", submit: "step-submit" }, classes: { nav_current: "current", nav_done: "done", step_active: "active", step_done: "done", active_step: "active" }, current_step: 1 },
+                n = a ? u(n, a) : n;
+            p.Custom.Stepper(e, n), p.Validate.OnChange(".js-select2"), p.Validate.OnChange(".date-picker"), p.Validate.OnChange(".js-tagify")
+        })
+    }, p.Stepper.init = function() { p.Stepper(".stepper-init") }, p.Tagify = function(e, t) { x(e).exists() && "function" == typeof x.fn.tagify && (t = t ? u(void 0, t) : void 0, x(e).tagify(t)) }, p.Tagify.init = function() { p.Tagify(".js-tagify") }, p.Preloader = function() {
+        var e = x(".js-preloader");
+        e.exists() && (a.addClass("page-loaded"), e.delay(600).fadeOut(300))
+    }, p.OtherInit = function() { p.ClassBody(), p.PassSwitch(), p.CurrentLink(), p.LinkOff(".is-disable"), p.ClassNavMenu(), p.SetHW("[data-height]", "height"), p.SetHW("[data-width]", "width"), p.NumberSpinner(), p.Lightbox(".popup-video", "video"), p.Lightbox(".popup-iframe", "iframe"), p.Lightbox(".popup-image", "image"), p.Lightbox(".popup-content", "content"), p.Control(".custom-control-input") }, p.Ani.init = function() { p.Ani.formElm(".form-control-outlined"), p.Ani.formSearch(".toggle-search") }, p.BS.init = function() { p.BS.menutip("a.nk-menu-link"), p.BS.tooltip(".nk-tooltip"), p.BS.tooltip(".btn-tooltip", { placement: "top" }), p.BS.tooltip('[data-toggle="tooltip"]'), p.BS.tooltip('[data-bs-toggle="tooltip"]'), p.BS.tooltip(".tipinfo,.nk-menu-tooltip", { placement: "right" }), p.BS.popover('[data-toggle="popover"]'), p.BS.popover('[data-bs-toggle="popover"]'), p.BS.progress("[data-progress]"), p.BS.fileinput(".form-file-input"), p.BS.modalfix(), p.BS.ddfix(), p.BS.tabfix() }, p.Picker.init = function() { p.Picker.date(".date-picker"), p.Picker.dob(".date-picker-alt"), p.Picker.time(".time-picker"), p.Picker.date(".date-picker-range", { todayHighlight: !1, autoclose: !1 }), p.Picker.date(".date-picker-ym", { format: "mm/yy", startView: 2, autoclose: !0, maxViewMode: 2, minViewMode: 1 }) }, p.Addons.Init = function() { p.Knob.init(), p.Range.init(), p.Select2.init(), p.Dropzone.init(), p.Slider.init(), p.DataTable.init(), p.Tagify.init() }, p.TGL.init = function() { p.TGL.content(".toggle"), p.TGL.expand(".toggle-expand"), p.TGL.expand(".toggle-opt", { toggle: !1 }), p.TGL.showmenu(".nk-nav-toggle"), p.TGL.ddmenu("." + e + "-toggle", { self: e + "-toggle", child: e + "-sub" }) }, p.BS.modalOnInit = function() { x(".modal").on("shown.bs.modal", function() { p.Select2.init(), p.Validate.init() }) }, p.init = function() { p.coms.docReady.push(p.OtherInit), p.coms.docReady.push(p.Prettify), p.coms.docReady.push(p.ColorBG), p.coms.docReady.push(p.ColorTXT), p.coms.docReady.push(p.Copied), p.coms.docReady.push(p.Ani.init), p.coms.docReady.push(p.TGL.init), p.coms.docReady.push(p.BS.init), p.coms.docReady.push(p.Validate.init), p.coms.docReady.push(p.Picker.init), p.coms.docReady.push(p.Addons.Init), p.coms.docReady.push(p.Wizard), p.coms.docReady.push(p.sbCompact), p.coms.docReady.push(p.Stepper.init), p.coms.winLoad.push(p.ModeSwitch), p.coms.winLoad.push(p.Preloader) }, p.init()
+})(NioApp, jQuery);

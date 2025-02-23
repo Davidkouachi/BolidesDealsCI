@@ -1,37 +1,35 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const fileInput = document.getElementById('imageInput');
-    const imagePreview = document.getElementById('imagePreview');
-    const removeButton = document.getElementById('removeButton');
+$(document).ready(function() {
+    const $fileInput = $('#imageInput0');
+    const $imagePreview = $('#imagePreview');
+    const $removeButton = $('#removeButton');
+    const $marqueInput = $('#marque');
+    const $label = $('.label_input_file0');
 
-    fileInput.addEventListener('change', function(event) {
+    $fileInput.on('change', function(event) {
         const file = event.target.files[0];
         if (file) {
-
-            // Extract the file name without the extension
-            let fileName = file.name.split('.').slice(0, -1).join('.');
-            // Convert the file name to uppercase
-            fileName = fileName.toUpperCase();
-            // Display the uppercase file name in the 'marque' input field
-            document.getElementById('marque').value = fileName;
+            $label.hide();
+            // Extraire le nom du fichier sans extension et le convertir en majuscules
+            let fileName = file.name.split('.').slice(0, -1).join('.').toUpperCase();
+            $marqueInput.val(fileName);
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-                removeButton.style.display = 'block';
-                fileInput.style.display = 'none';
-                document.getElementById('marque').value;
-            }
+                $imagePreview.attr('src', e.target.result);
+                $removeButton.show();
+            };
             reader.readAsDataURL(file);
         }
     });
 
-    removeButton.addEventListener('click', function() {
-        imagePreview.src = ''; // Réinitialiser l'image
-        fileInput.value = ''; // Réinitialiser l'input file
-        removeButton.style.display = 'none'; // Masquer le bouton
-        fileInput.style.display = 'block'; // Réafficher l'input file
+    $removeButton.on('click', function() {
+        $imagePreview.attr('src', ''); // Réinitialiser l'image
+        $fileInput.val(null); // Réinitialiser l'input file
+        $removeButton.hide(); // Masquer le bouton
+        $label.show(); // Réafficher l'input file
+        $marqueInput.val(null);
     });
 
-    // Masquer le bouton au début
-    removeButton.style.display = 'none';
+    // Masquer le bouton au chargement
+    $removeButton.hide();
 });
