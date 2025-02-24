@@ -18,6 +18,9 @@ Route::middleware(['web'])->group(function () {
 
 
     Route::post('/insert_marque', [InsertController::class, 'insert_marque']);
+    Route::post('/insert_user_verouille/{mat}', [InsertController::class, 'insert_user_verouille']);
+    Route::post('/insert_user_deverouille/{mat}', [InsertController::class, 'insert_user_deverouille']);
+    Route::post('/insert_notification/{mat}', [InsertController::class, 'insert_notification']);
 
 
     Route::post('/update_marque/{id}', [UpdateController::class, 'update_marque']);
@@ -36,6 +39,7 @@ Route::get('/select_type', [SelectController::class, 'select_type']);
 
 
 Route::get('/list_marque_all', [ListController::class, 'list_marque_all']);
+Route::get('/list_users_all', [ListController::class, 'list_users_all']);
 
 
 

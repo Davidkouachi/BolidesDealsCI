@@ -52,11 +52,11 @@
     <div class="nk-app-root">
         <div class="nk-main ">
 
-            @if(request()->routeIs('index_accueil_bord','index_marque_bord') )
+            @if(request()->routeIs('index_accueil_bord','index_marque_bord','index_user_bord'))
             <div class="nk-sidebar is-light nk-sidebar-fixed " data-content="sidebarMenu">
                 <div class="nk-sidebar-element nk-sidebar-head">
                     <div class="nk-sidebar-brand">
-                        <a class="logo-link nk-sidebar-logo" onclick="window.location.reload();">
+                        <a class="logo-link nk-sidebar-logo">
                             <img height="50" width="50" src="{{asset('images/logo/logo.png')}}" /></img>
                         </a>
                     </div>
@@ -81,8 +81,8 @@
                                         </span>
                                     </a>
                                 </li>
-                                {{-- <li class="nk-menu-item">
-                                    <a class="nk-menu-link" href="{{route('index_bord_user')}}">
+                                <li class="nk-menu-item">
+                                    <a class="nk-menu-link" href="{{route('index_user_bord')}}">
                                         <span class="nk-menu-icon">
                                             <em class="icon ni ni-user-list">
                                             </em>
@@ -91,7 +91,7 @@
                                             Utilisateurs
                                         </span>
                                     </a>
-                                </li> --}}
+                                </li>
                                 {{-- <li class="nk-menu-item">
                                     <a class="nk-menu-link" href="{{route('index_bord_role')}}">
                                         <span class="nk-menu-icon">
@@ -159,7 +159,7 @@
                     <div class="container-xl wide-xl">
                         <div class="nk-header-wrap">
 
-                            @if(request()->routeIs('index_accueil_bord','index_marque_bord') )
+                            @if(request()->routeIs('index_accueil_bord','index_marque_bord','index_user_bord') )
                             <div class="nk-menu-trigger d-xl-none ms-n1 me-3">
                                 <a class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu" href="#">
                                     <em class="icon ni ni-menu">

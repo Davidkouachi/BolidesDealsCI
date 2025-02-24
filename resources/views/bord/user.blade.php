@@ -19,100 +19,21 @@
             <div class="nk-block">
 			    <div class="card card-preview">
 			        <div class="card-inner">
-			            <table class="datatable-init table">
+			            <table class="datatable-init table table_users">
 			                <thead>
 			                    <tr>
-			                        <th style="width: 50px;">
-			                        	N°
-			                        </th>
+			                        <th>N°</th>
 			                        <th>Nom</th>
 			                        <th>Prénoms</th>
+			                        <th>Contact</th>
 			                        <th>Email</th>
+			                        <th>Statut</th>
 			                        <th>Rôle</th>
 			                        <th>Date de création</th>
 			                        <th></th>
 			                    </tr>
 			                </thead>
 			                <tbody>
-			                	@foreach($users as $key => $user)
-			                    <tr>
-			                        <td class="nk-tb-col " style="width: 50px;">
-			                        	{{$key+1}}
-			                        </td>
-			                        <td class="nk-tb-col">
-			                        	{{$user->name}}
-			                        </td>
-			                        <td class="nk-tb-col">
-			                        	{{$user->prenom}}
-			                        </td>
-			                        <td class="nk-tb-col">
-			                        	{{$user->email}}
-			                        </td>
-			                        <td class="nk-tb-col 
-			                        	@php
-			                        		if ($user->role === 'ADMINISTRATEUR') {
-			                        			echo 'text-danger';
-			                        		}
-			                        	@endphp 
-			                        ">
-			                        	{{$user->role}}
-			                        </td>
-			                        <td class="nk-tb-col">
-			                        	{{ \Carbon\Carbon::parse($user->created_at)->translatedFormat('j F Y '.' à '.' H:i:s') }}
-			                        </td>
-			                        <td class="nk-tb-col d-flex">
-			                            <div class="nk-tb-col-tools">
-										    <ul class="nk-tb-actions gx-1 my-n1">
-										        <li class="me-n1">
-										            <div class="dropdown">
-										            	<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
-										            		<em class="icon ni ni-more-h"></em>
-										            	</a>
-										                <div class="dropdown-menu dropdown-menu-end">
-										                    <ul class="link-list-opt no-bdr">
-										                        <li>
-										                        	<a data-bs-toggle="modal" data-bs-target="#modalInfo{{$user->id}}" href="#">
-										                        		<em class="icon ni ni-file-docs"></em>
-										                        		<span>Informations</span>
-										                        	</a>
-										                        </li>
-										                        <li>
-										                        	<a data-bs-toggle="modal" data-bs-target="#modalNote{{$user->id}}" href="#">
-										                        		<em class="icon ni ni-send"></em>
-										                        		<span>Envoyer une note</span>
-										                        	</a>
-										                        </li>
-										                        @if($user->lock === 'non')
-										                        <li>
-										                        	<a href="{{route('lock', $user->id)}}" class="text-danger">
-										                        		<em class="icon ni ni-lock"></em>
-										                        		<span>Verouillé</span>
-										                        	</a>
-										                        </li>
-										                        @else
-										                        <li>
-										                        	<a href="{{route('unlock', $user->id)}}" class="text-success">
-										                        		<em class="icon ni ni-unlock"></em>
-										                        		<span>Déverouillé</span>
-										                        	</a>
-										                        </li>
-										                        @endif
-										                    </ul>
-										                </div>
-										            </div>
-										        </li>
-										    </ul>
-										</div>
-			                        </td>
-			                        <td class="nk-tb-col">
-										@if($user->lock === 'non')
-										    <em class="icon ni ni-unlock text-success"></em>
-										@else
-										    <em class="icon ni ni-lock text-danger"></em>
-										@endif
-			                        </td>
-			                    </tr>
-			                    @endforeach
 			                </tbody>
 			            </table>
 			        </div>
@@ -126,7 +47,7 @@
 
 @endsection
 
-@foreach ($users as $user)
+{{-- @foreach ($users as $user)
 <div class="modal fade zoom" tabindex="-1" id="modalInfo{{ $user->id }}">
     <div class="modal-dialog modal-md" role="document" style="width: 100%;">
         <div class="modal-content">
@@ -293,9 +214,9 @@
         </div>
     </div>
 </div>
-@endforeach
+@endforeach --}}
 
-@foreach ($users as $user)
+{{-- @foreach ($users as $user)
 <div class="modal fade zoom" tabindex="-1" id="modalNote{{ $user->id }}">
     <div class="modal-dialog modal-md" role="document" style="width: 100%;">
         <div class="modal-content">
@@ -339,8 +260,8 @@
         </div>
     </div>
 </div>
-@endforeach
+@endforeach --}}
 
-
+<script src="{{asset('assets/js/app/js/bord/user/list.js') }}"></script>
 
 @endsection

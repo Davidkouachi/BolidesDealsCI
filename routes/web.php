@@ -21,7 +21,8 @@ Route::get('/Nouveau Mot de passe/{token}', [Controller::class, 'index_new_passw
 
 Route::middleware(['administration:ADMINISTRATEUR'])->group(function () {
     Route::get('/Tableau de Bord', [Controller::class, 'index_accueil_bord'])->name('index_accueil_bord');
-    Route::get('/Marques de véhicules', [Controller::class, 'index_marque_bord'])->name('index_marque_bord');
+    Route::get('/Marques', [Controller::class, 'index_marque_bord'])->name('index_marque_bord');
+    Route::get('/Utilisateurs', [Controller::class, 'index_user_bord'])->name('index_user_bord');
 
 
     // Route::get('/Tableau de Bord/Suggestions', [Controller::class, 'index_bord_sugg'])->name('index_bord_sugg');

@@ -65,5 +65,10 @@ class Controller
         return view('bord.marque');
     }
 
+    public function index_user_bord()
+    {
+        return view('bord.user');
+    }
+
 
 }

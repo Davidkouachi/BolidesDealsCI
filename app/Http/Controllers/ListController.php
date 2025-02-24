@@ -38,4 +38,24 @@ class ListController extends Controller
             'data' => $data,
         ]);
     }
+
+    public function list_users_all()
+    {
+        // Récupérer tous les utilisateurs
+        $users = DB::table('users')->get();
+
+        // Récupérer les rôles sous forme de tableau [id => nom]
+        $roles = DB::table('roles')->pluck('nom', 'id');
+
+        // Associer les rôles aux utilisateurs
+        foreach ($users as &$user) {
+            $user->id = (string) $user->id; // Convertir l'ID en string
+            $user->role = $roles[$user->role_id] ?? 'Inconnu'; // Associer le rôle
+        }
+
+        return response()->json([
+            'data' => $users,
+        ]);
+    }
+
 }

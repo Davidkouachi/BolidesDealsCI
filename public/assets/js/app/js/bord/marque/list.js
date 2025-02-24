@@ -41,8 +41,6 @@ $(document).ready(function () {
                                             src="storage/images/${item.image_nom}" 
                                             alt="${item.nom}" 
                                             class="thumb image_view" 
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#modalImage" 
                                             data-src="storage/images/${item.image_nom}">
                                     </div>
                                 </td>
@@ -65,9 +63,7 @@ $(document).ready(function () {
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <ul class="link-list-opt no-bdr">
                                                         <li>
-                                                            <a  href="#"
-                                                                data-bs-toggle="modal" 
-                                                                data-bs-target="#modalUpdate" 
+                                                            <a  href="#" 
                                                                 class="text-info btn_modif"
                                                                 data-id="${item.id}"
                                                                 data-src="storage/images/${item.image_nom}"
@@ -108,7 +104,60 @@ $(document).ready(function () {
             }
         });
 
-        $('.table_marque').off('click', '.btn_modif').on('click', '.btn_modif', function () {
+        $('.table_marque').off('click', '.btn_modif').on('click', '.btn_modif', function (event) {
+            event.preventDefault();
+
+            $('#modalUpdate').remove();
+
+            $('body').append(`
+                <div class="modal fade xxl" tabindex="-1" id="modalUpdate" aria-modal="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content ">
+                            <div class="modal-body modal-body-lg bg-white">
+                                <div class="row g-gs align-items-center justify-content-center">
+                                    <div class="col-12 h-50" >
+                                        <div class="">
+                                            <div class="mb-3" style="display: flex;justify-content: center;align-items: center;border:block; height: 150px; border-radius: 10px;">
+                                                <a>
+                                                    <img id="imagePreview_modif" style="object-fit: cover;height: 150px;" class="" src="" />
+                                                </a>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="form-control-wrap text-center">
+                                                    <label for="imageInput0_modif" class="label_input_file0_modif">Choisir une image</label>
+                                                    <input type="file" id="imageInput0_modif" accept="image/*">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12" >
+                                        <div class="form-group">
+                                            <div class="form-control-wrap">
+                                                <input type="hidden" id="id_marque">
+                                                <input name="marque" class="form-control" required type="text" oninput="this.value = this.value.toUpperCase()" placeholder="Entrer la Marque" id="marque_modif" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12" >
+                                        <div class="form-group row g-gs">
+                                            <div class="col-12 text-center">
+                                                <button class="btn btn-mw btn-dim btn-outline-success btn-white " id="btn_modif">
+                                                    <span>Sauvgarder</span>
+                                                    <em class="icon ni ni-arrow-right-circle"></em>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `);
+
+            // Affichage du modal
+            $('#modalUpdate').modal('show');
+
             const id = $(this).data('id');
             const src = $(this).data('src');
             const nom = $(this).data('nom');
@@ -138,7 +187,24 @@ $(document).ready(function () {
             });
         });
 
-        $('.table_marque').off('click', '.image_view').on('click', '.image_view', function () {
+        $('.table_marque').off('click', '.image_view').on('click', '.image_view', function (event) {
+            event.preventDefault();
+
+            $('#modalImage').remove();
+
+            $('body').append(`
+                <div class="modal fade zoom" tabindex="-1" id="modalImage" aria-modal="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-body text-center">
+                            <img src="" class="img-fluid modal_img_view" style="max-width: 100%; height: auto;">
+                        </div>
+                    </div>
+                </div>
+            `);
+
+            // Affichage du modal
+            $('#modalImage').modal('show');
+
             var imageUrl = $(this).data('src'); // Récupérer l'URL de l'image
             $('#modalImage .modal_img_view').attr('src', imageUrl); // Mettre à jour l'image du modal
         });  

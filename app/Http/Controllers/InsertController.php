@@ -51,4 +51,63 @@ class InsertController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Opération éffectuée']);
     }
+
+    public function insert_user_verouille($mat)
+    {
+        $user = DB::table('users')->where('mat', $mat)->first();
+
+        if (!$user) {
+            return response()->json(['user_introuv' => true, 'message' => 'Ce utilisateur est introuvable']);
+        }
+
+        $Insert = DB::table('users')->where('mat', $mat)->update([
+            'lock' => 'oui',
+            'updated_at' => now(),
+        ]);
+
+        if ($Insert == 0) {
+            return response()->json(['error_db' => true,'message' => 'error lors de l\'insertion dans users']);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Opération éffectuée']);
+    }
+
+    public function insert_user_deverouille($mat)
+    {
+        $user = DB::table('users')->where('mat', $mat)->first();
+
+        if (!$user) {
+            return response()->json(['user_introuv' => true, 'message' => 'Ce utilisateur est introuvable']);
+        }
+
+        $Insert = DB::table('users')->where('mat', $mat)->update([
+            'lock' => 'non',
+            'updated_at' => now(),
+        ]);
+
+        if ($Insert == 0) {
+            return response()->json(['error_db' => true,'message' => 'error lors de l\'insertion dans users']);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Opération éffectuée']);
+    }
+
+    public function insert_notification(Request $request, $mat)
+    {
+
+        $Insert = DB::table('notifications')->insert([
+            'type' => $request->type,
+            'message' => $request->message,
+            'user_mat' => $mat,
+            'login_mat' => Auth::user()->mat,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        if ($Insert == 0) {
+            return response()->json(['error_db' => true,'message' => 'error lors de l\'insertion dans users']);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Opération éffectuée']);
+    }
 }
